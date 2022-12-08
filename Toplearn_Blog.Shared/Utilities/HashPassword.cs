@@ -41,5 +41,15 @@ namespace Toplearn_Blog.Shared.Utilities
 
             return comparer.Compare(hashOfInput, hash) == 0;
         }
+        public static string Hash(string text)
+        {
+            string hash;
+            using (SHA256 sha = SHA256.Create())
+            {
+                hash = GetHash(sha , text);
+            }
+
+            return hash;
+        }
     }
 }

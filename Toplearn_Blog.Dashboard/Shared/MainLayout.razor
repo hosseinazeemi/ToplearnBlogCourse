@@ -1,51 +1,140 @@
 ﻿@inherits LayoutComponentBase
 
-<Layout Style="min-height: 100vh; ">
-    <Sider Collapsible Collapsed=@collapsed OnCollapse=@onCollapse>
+<Layout Style="min-height: 100vh; " >
+    <Sider Collapsible Width="240" Collapsed=@collapsed OnCollapse=@onCollapse>
         <div class="logo" />
         <Menu Theme="MenuTheme.Dark" DefaultSelectedKeys=@(new[]{"1"}) Mode="MenuMode.Inline">
             <MenuItem Key="1">
-                <Icon Type="pie-chart" Theme="outline" />
-                <span>Option 1</span>
-            </MenuItem>
-            <MenuItem Key="2">
-                <Icon Type="desktop" Theme="outline" />
-                <span>Option 2</span>
+                <Icon Type="home" Theme="outline" />
+                <span>
+                    <a href="#">داشبورد</a>
+                </span>
             </MenuItem>
             @{
                 RenderFragment sub1Title =
-                    @<span>
-                        <Icon Type="user" Theme="outline"/>
-                        <span>User</span>
-                    </span>;
+                @<span>
+                    <Icon Type="user" Theme="outline" />
+                    <span>مدیر</span>
+                </span>
+                ;
             }
-            <SubMenu Key="sub1" TitleTemplate=sub1Title>
-                <MenuItem Key="3">Tom</MenuItem>
-                <MenuItem Key="4">Bill</MenuItem>
-                <MenuItem Key="5">Alex</MenuItem>
+            <SubMenu Key="sub1" TitleTemplate="sub1Title" Class="rounded">
+                <MenuItem Key="2">
+                    <a href="/dashboard/admins/create">
+                        ثبت مدیر
+                    </a>
+                </MenuItem>
+                <MenuItem Key="3">
+                    <a href="/dashboard/admins/list">
+                        لیست مدیر
+                    </a>
+                </MenuItem>
             </SubMenu>
+
             @{
                 RenderFragment sub2Title =
-                    @<span>
-                        <Icon Type="team" Theme="outline"/>
-                        <span>Team</span>
-                    </span>;
+                @<span>
+                    <Icon Type="unordered-list" Theme="outline" />
+                    <span>دسته بندی</span>
+                </span>
+                ;
             }
-            <SubMenu Key="sub2" TitleTemplate=sub2Title>
-                <MenuItem Key="6">Team 1</MenuItem>
-                <MenuItem Key="8">Team 2</MenuItem>
+            <SubMenu Key="sub2" TitleTemplate="sub2Title" Class="rounded">
+                <MenuItem Key="4">
+                    <a href="/dashboard/categories/create">
+                        ثبت دسته بندی
+                    </a>
+                </MenuItem>
+                <MenuItem Key="5">
+                    <a href="/dashboard/categories/list">
+                        لیست دسته بندی ها
+                    </a>
+                </MenuItem>
             </SubMenu>
-            <MenuItem Key="9">
-                <Icon Type="file" Theme="outline"/>
+
+            @{
+                RenderFragment sub3Title =
+                @<span>
+                    <Icon Type="tags" Theme="outline" />
+                    <span>برچسب</span>
+                </span>
+                ;
+            }
+            <SubMenu Key="sub3" TitleTemplate="sub3Title" Class="rounded">
+                <MenuItem Key="6">
+                    <a href="/dashboard/tags/create">
+                        ایجاد برچسب
+                    </a>
+                </MenuItem>
+                <MenuItem Key="7">
+                    <a href="/dashboard/tags/list">
+                        لیست برچسب ها
+                    </a>
+                </MenuItem>
+            </SubMenu>
+
+            @{
+                RenderFragment sub4Title =
+                @<span>
+                    <Icon Type="file-search" Theme="outline" />
+                    <span>خبر</span>
+                </span>
+                ;
+            }
+            <SubMenu Key="sub4" TitleTemplate="sub4Title" Class="rounded">
+                <MenuItem Key="8">
+                    <a href="/dashboard/news/create">
+                        ثبت خبر
+                    </a>
+                </MenuItem>
+                <MenuItem Key="9">
+                    <a href="/dashboard/news/list">
+                        لیست اخبار
+                    </a>
+                </MenuItem>
+                <MenuItem Key="10">
+                    <a href="/dashboard/news/comments">
+                        لیست نظرات
+                    </a>
+                </MenuItem>
+            </SubMenu>
+             <MenuItem Key="11">
+                <Icon Type="setting" Theme="outline" />
+                <span>
+                <a href="#">تنظیمات</a>
+
+                </span>
+            </MenuItem>
+            <MenuItem Key="12">
+                <Icon Type="logout" Theme="outline" />
+                <span>
+                    <a href="#">
+                    خروج
+                </a>
+                </span>
             </MenuItem>
         </Menu>
     </Sider>
-    <Layout Class="site-layout" >
-        <Header Class="site-layout-background" Style=" padding: 0 ;" ></Header>
-        <Content Style="margin:0 16px;" >
-            @Body
+    <Layout Class="site-layout">
+        <Header Class="header shadow">
+           @if (collapsed)
+            {
+                <Icon Type="menu-unfold" Theme="outline" Class="trigger" OnClick="toggle" />
+            }
+            else
+            {
+                <Icon Type="menu-fold" Theme="outline" Class="trigger" OnClick="toggle" />
+            }
+        </Header>
+        <Content Class="p-4 content">
+            <div class="container shadow rounded pt-1 pb-1 pr-3 pl-3 bg-white">
+                @Body
+            </div>
         </Content>
-        <Footer Style="text-align:center ">Ant Design ©2018 Created by Ant UED</Footer>
+        <Footer Class="footer">
+            <h6>پنل مدیریت</h6>
+            <p class="m-0">دوره آموزشی سایت خبری ، تاپ لرن</p>
+        </Footer>
     </Layout>
 </Layout>
 
@@ -53,21 +142,12 @@
 @code {
     bool collapsed;
 
-   void onCollapse(bool collapsed) {
-        Console.WriteLine(collapsed);
-        this.collapsed =collapsed;
+    void onCollapse(bool collapsed)
+    {
+        this.collapsed = collapsed;
+    }
+     void toggle()
+    {
+        collapsed = !collapsed;
     }
 }
-
-
-<style>
-    #components-layout-demo-side .logo {
-        height: 32px;
-        background: rgba(255, 255, 255, 0.2);
-        margin: 16px;
-    }
-
-    .site-layout .site-layout-background {
-        background: #fff;
-    }
-</style>

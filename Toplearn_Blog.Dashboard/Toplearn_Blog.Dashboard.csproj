@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Toplearn_Blog.Shared\Toplearn_Blog.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
 </Project>
