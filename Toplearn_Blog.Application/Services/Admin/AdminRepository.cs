@@ -26,7 +26,8 @@ namespace Toplearn_Blog.Application.Services.Admin
            
             try
             {
-                _context.SaveChangesAsync();
+                //_context.SaveChangesAsync();
+                _context.SaveChangesAsync().GetAwaiter().GetResult();
                 return Task.FromResult(true);
             }
             catch (Exception)

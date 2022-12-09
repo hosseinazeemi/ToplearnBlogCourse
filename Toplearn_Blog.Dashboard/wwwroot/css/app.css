@@ -41,6 +41,16 @@ a {
 .content {
     margin-top:70px;
 }
+.validation-errors li {
+    color: #b93636;
+    font-size:14px;
+}
+.validation-errors {
+    background: #fff7f7;
+    padding: 10px 20px;
+    list-style-type: none;
+    border-radius: 10px;
+}
 .ant-menu-title-content span a {
     color:#ffffffa6;
 }
