@@ -36,5 +36,14 @@ namespace Toplearn_Blog.WebAPI.Controllers
                 throw;
             }
         }
+
+        [HttpGet("list")]
+        public ResponseDto<List<UserDto>> List()
+        {
+            var result = _adminRepository.GetAll().GetAwaiter().GetResult();
+            // map
+            var mapData = _autoMapper.Map<List<User>, List<UserDto>>(result);
+            return new ResponseDto<List<UserDto>>(true , "دریافت شد" , mapData);
+        }
     }
 }

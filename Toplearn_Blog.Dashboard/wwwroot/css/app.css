@@ -73,3 +73,6 @@ a {
 .ant-form-rtl .ant-form-item-label{
     text-align:right;
 }
+.table-action button span{
+    font-size:22px;
+}

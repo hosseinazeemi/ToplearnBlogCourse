@@ -1,0 +1,69 @@
+﻿@page "/dashboard/admins/list"
+
+@using System.ComponentModel
+@using AntDesign.TableModels
+@using Toplearn_Blog.Shared.Dto.User
+
+<PageTitle>
+    پنل مدیریت | لیست مدیر ها
+</PageTitle>
+<div class="card-body">
+    <Breadcrumb Class="pb-3 border-bottom">
+        <BreadcrumbItem>داشبورد</BreadcrumbItem>
+        <BreadcrumbItem>مدیر</BreadcrumbItem>
+        <BreadcrumbItem>لیست مدیر</BreadcrumbItem>
+    </Breadcrumb>
+    <div class="pt-3">
+        <h6 class="pb-3 fw-bold">لیست مدیرها</h6>
+        <Spin Spinning="Loading">
+            <Table TItem="UserDto" DataSource="@Users">
+                <PropertyColumn Title="شناسه" Property="c=>c.Id">
+                    <a>@context.Id</a>
+                </PropertyColumn>
+                <PropertyColumn Title="نام" Property="c=>c.Name">
+                    <a>@context.Name</a>
+                </PropertyColumn>
+                <PropertyColumn Title="نام خانوادگی" Property="c=>c.LastName">
+                    <a>@context.LastName</a>
+                </PropertyColumn>
+                <PropertyColumn Title="ایمیل" Property="c=>c.Email">
+                    <a>@context.Email</a>
+                </PropertyColumn>
+                <PropertyColumn Title="شماره تماس" Property="c=>c.Phone">
+                    <a>@context.Phone</a>
+                </PropertyColumn>
+                <PropertyColumn Title="وضعیت فعلی" Property="c=>c.IsActive">
+                    <div>
+                        @if (context.IsActive)
+                        {
+                            <span class="badge bg-success">فعال</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">غیر فعال</span>
+                        }
+                    </div>
+                </PropertyColumn>
+                <ActionColumn Title="عملیات" Class="table-action">
+                    <button class="btn btn-danger" @onclick="@(() => BeginRemove(context.Id))">
+                        <Icon Type="delete" Theme="outline" />
+                    </button>
+                    <button class="btn btn-secondary" @onclick="@(() => ChangeState(context.Id))">
+                        @if (context.IsActive)
+                        {
+                            <Icon Type="close" Theme="outline" />
+                        }
+                        else
+                        {
+                            <Icon Type="check" Theme="outline" />
+                        }
+                    </button>
+                    <button class="btn btn-primary" @onclick="@(() => Edit(context.Id))">
+                        <Icon Type="highlight" Theme="outline" />
+                    </button>
+                </ActionColumn>
+            </Table>
+
+        </Spin>
+    </div>
+</div>

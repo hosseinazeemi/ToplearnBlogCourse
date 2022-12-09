@@ -11,5 +11,6 @@ namespace Toplearn_Blog.Application.Interfaces.Admin
     public interface IAdminRepository
     {
         Task<bool> Create(User user);
+        Task<List<User>> GetAll();
     }
 }

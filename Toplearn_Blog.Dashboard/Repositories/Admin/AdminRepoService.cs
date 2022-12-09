@@ -17,5 +17,10 @@ namespace Toplearn_Blog.Dashboard.Repositories.Admin
         {
             return _http.Post<bool , UserDto>($"{baseUrl}/create", user);
         }
+
+        public Task<ResponseDto<List<UserDto>>> GetAll()
+        {
+            return _http.Get<List<UserDto>>($"{baseUrl}/list");
+        }
     }
 }

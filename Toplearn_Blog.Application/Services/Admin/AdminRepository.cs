@@ -35,5 +35,19 @@ namespace Toplearn_Blog.Application.Services.Admin
                 return Task.FromResult(false);
             }
         }
+
+        public async Task<List<User>> GetAll()
+        {
+            var result = _context.Users.Select(item => new User
+            {
+                Id = item.Id,
+                Name = item.Name , 
+                LastName = item.LastName , 
+                Phone = item.Phone,
+                Email = item.Email , 
+                IsActive = item.IsActive
+            }).ToList();
+            return await Task.FromResult(result);
+        }
     }
 }

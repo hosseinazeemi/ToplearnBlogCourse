@@ -11,6 +11,22 @@ namespace Toplearn_Blog.Dashboard.Services
         {
             _http = http;
         }
+
+        public async Task<ResponseDto<TResult>> Get<TResult>(string url)
+        {
+            var response = await _http.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                var deserialize = JsonConvert.DeserializeObject<ResponseDto<TResult>>(result);
+                return await Task.FromResult(deserialize);
+            }else
+            {
+                return new ResponseDto<TResult>(false, "خطا", default);
+            }
+        }
+
         public async Task<ResponseDto<TResult>> Post<TResult, TData>(string url, TData data)
         {
             var serializeData = JsonConvert.SerializeObject(data);
