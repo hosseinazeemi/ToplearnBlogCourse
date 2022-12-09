@@ -7,7 +7,8 @@
         <BreadcrumbItem>ایجاد مدیر</BreadcrumbItem>
     </Breadcrumb>
     <div class="pt-3">
-        <div>
+       <Spin Spinning="@Loading">
+            <div>
             <EditForm Model="User" OnValidSubmit="Create">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -37,6 +38,7 @@
                 <button type="submit" class="btn btn-primary">ثبت اطلاعات</button>
             </EditForm>
         </div>
+       </Spin>
 
     </div>
 </div>

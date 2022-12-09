@@ -23,6 +23,20 @@ namespace Toplearn_Blog.WebAPI
             builder.Services.AddScoped<IDatabaseContext , DatabaseContext>();
             builder.Services.AddTransient<IAdminRepository, AdminRepository>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            string siteUrl = builder.Configuration.GetSection("Urls")["SiteUrl"];
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    //builder
+                    //.AllowAnyOrigin()
+                    //.AllowAnyMethod()
+                    //.AllowAnyHeader();
+                    builder.WithOrigins(siteUrl)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -33,7 +47,7 @@ namespace Toplearn_Blog.WebAPI
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors();
             app.UseAuthorization();
 
             app.MapControllers();
