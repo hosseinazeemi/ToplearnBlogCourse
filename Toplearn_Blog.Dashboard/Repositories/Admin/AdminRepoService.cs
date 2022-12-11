@@ -18,9 +18,9 @@ namespace Toplearn_Blog.Dashboard.Repositories.Admin
             return _http.Post<bool , UserDto>($"{baseUrl}/create", user);
         }
 
-        public Task<ResponseDto<List<UserDto>>> GetAll()
+        public Task<ResponseDto<List<UserDto>>> GetAll(Paginate paginate)
         {
-            return _http.Get<List<UserDto>>($"{baseUrl}/list");
+            return _http.Get<List<UserDto>>($"{baseUrl}/list?CurrentPage={paginate.CurrentPage}&Take={paginate.Take}");
         }
     }
 }

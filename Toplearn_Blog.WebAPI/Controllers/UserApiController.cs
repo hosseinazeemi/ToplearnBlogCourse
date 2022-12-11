@@ -38,12 +38,13 @@ namespace Toplearn_Blog.WebAPI.Controllers
         }
 
         [HttpGet("list")]
-        public ResponseDto<List<UserDto>> List()
+        public ResponseDto<List<UserDto>> List([FromQuery]Paginate paginate)
         {
-            var result = _adminRepository.GetAll().GetAwaiter().GetResult();
+            var result = _adminRepository.GetAll(paginate).GetAwaiter().GetResult();
+
             // map
-            var mapData = _autoMapper.Map<List<User>, List<UserDto>>(result);
-            return new ResponseDto<List<UserDto>>(true , "دریافت شد" , mapData);
+            var mapData = _autoMapper.Map<List<User>, List<UserDto>>(result.Data);
+            return new ResponseDto<List<UserDto>>(true , "دریافت شد" , mapData , result.Paginate);
         }
     }
 }

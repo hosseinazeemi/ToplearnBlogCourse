@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using Toplearn_Blog.Application.Interfaces.Admin;
 using Toplearn_Blog.Application.Interfaces.Context;
 using Toplearn_Blog.Domain.Entities;
+using Toplearn_Blog.Shared.Dto.Global;
 using Toplearn_Blog.Shared.Dto.User;
 using Toplearn_Blog.Shared.Utilities;
 
@@ -36,17 +38,25 @@ namespace Toplearn_Blog.Application.Services.Admin
             }
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<RepoResultDto<List<User>>> GetAll(Paginate paginate)
         {
-            var result = _context.Users.Select(item => new User
+            var queryable = _context.Users.AsQueryable();
+            var pageInfo = new Paginate(paginate.CurrentPage, paginate.Take, queryable.Count());
+            var data = queryable.Select(item => new User
             {
                 Id = item.Id,
-                Name = item.Name , 
-                LastName = item.LastName , 
+                Name = item.Name,
+                LastName = item.LastName,
                 Phone = item.Phone,
-                Email = item.Email , 
+                Email = item.Email,
                 IsActive = item.IsActive
-            }).ToList();
+            }).Skip(pageInfo.Skip).Take(pageInfo.Take).ToList();
+
+            var result = new RepoResultDto<List<User>>
+            {
+                Paginate = pageInfo,
+                Data = data
+            };
             return await Task.FromResult(result);
         }
     }

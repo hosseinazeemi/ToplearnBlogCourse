@@ -16,7 +16,7 @@
     <div class="pt-3">
         <h6 class="pb-3 fw-bold">لیست مدیرها</h6>
         <Spin Spinning="Loading">
-            <Table TItem="UserDto" DataSource="@Users">
+            <Table TItem="UserDto" OnPageIndexChange="ChangePage" DataSource="@Users" PageIndex="@PageInfo.CurrentPage" Total="@PageInfo.AllItemsCount" PageSize="@PageInfo.Take">
                 <PropertyColumn Title="شناسه" Property="c=>c.Id">
                     <a>@context.Id</a>
                 </PropertyColumn>

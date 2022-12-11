@@ -19,7 +19,11 @@ namespace Toplearn_Blog.Dashboard.Services
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
-                var deserialize = JsonConvert.DeserializeObject<ResponseDto<TResult>>(result);
+                var deserialize = JsonConvert.DeserializeObject<ResponseDto<TResult>>(result, new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
+                });
                 return await Task.FromResult(deserialize);
             }else
             {
