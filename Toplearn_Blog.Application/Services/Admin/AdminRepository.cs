@@ -59,5 +59,25 @@ namespace Toplearn_Blog.Application.Services.Admin
             };
             return await Task.FromResult(result);
         }
+
+        public async Task<bool> Remove(int id)
+        {
+            User user = new User
+            {
+                Id = id
+            };
+            _context.Users.Remove(user);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+        }
     }
 }

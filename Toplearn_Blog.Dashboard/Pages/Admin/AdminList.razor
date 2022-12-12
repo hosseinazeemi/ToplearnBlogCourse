@@ -45,9 +45,16 @@
                     </div>
                 </PropertyColumn>
                 <ActionColumn Title="عملیات" Class="table-action">
-                    <button class="btn btn-danger" @onclick="@(() => BeginRemove(context.Id))">
-                        <Icon Type="delete" Theme="outline" />
-                    </button>
+
+                    <Popconfirm Title="آیا برای حذف این ردیف اطمینان دارید ؟"
+                                OnConfirm="@(() => Remove(context))"
+                                OnCancel="Cancel"
+                                OkText="بله"
+                                CancelText="خیر">
+                        <button class="btn btn-danger">
+                            <Icon Type="delete" Theme="outline" />
+                        </button>
+                    </Popconfirm>
                     <button class="btn btn-secondary" @onclick="@(() => ChangeState(context.Id))">
                         @if (context.IsActive)
                         {

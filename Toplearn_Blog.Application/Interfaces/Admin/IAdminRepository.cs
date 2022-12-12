@@ -13,5 +13,6 @@ namespace Toplearn_Blog.Application.Interfaces.Admin
     {
         Task<bool> Create(User user);
         Task<RepoResultDto<List<User>>> GetAll(Paginate paginate);
+        Task<bool> Remove(int Id);
     }
 }

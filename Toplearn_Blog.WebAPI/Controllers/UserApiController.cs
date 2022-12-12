@@ -46,5 +46,13 @@ namespace Toplearn_Blog.WebAPI.Controllers
             var mapData = _autoMapper.Map<List<User>, List<UserDto>>(result.Data);
             return new ResponseDto<List<UserDto>>(true , "دریافت شد" , mapData , result.Paginate);
         }
+
+        [HttpPost("remove")]
+        public ResponseDto<bool> Remove([FromBody]int id)
+        {
+            var result = _adminRepository.Remove(id).GetAwaiter().GetResult();
+
+            return new ResponseDto<bool>(true , "موفقیت آمیز" , result);
+        }
     }
 }

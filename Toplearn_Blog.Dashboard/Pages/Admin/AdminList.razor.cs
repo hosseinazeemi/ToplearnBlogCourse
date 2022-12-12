@@ -10,6 +10,8 @@ namespace Toplearn_Blog.Dashboard.Pages.Admin
     {
         [Inject]
         private IAdminRepoService _repo { get; set; }
+        [Inject]
+        NotificationService _notice { get; set; }
         public List<UserDto> Users { get; set; }
         public bool Loading { get; set; } = false;
         public Paginate PageInfo { get; set; }
@@ -40,9 +42,36 @@ namespace Toplearn_Blog.Dashboard.Pages.Admin
             PageInfo.Take = args.PageSize;
             await GetList(PageInfo);
         }
-        public async Task BeginRemove(int id)
+        public async Task Remove(UserDto user)
         {
+            Loading = true;
+            var result = await _repo.Remove(user.Id);
 
+            if (result.Status)
+            {
+                await _notice.Open(new NotificationConfig()
+                {
+                    Message = "پیام تایید",
+                    Description = result.Message,
+                    NotificationType = NotificationType.Success
+                });
+
+                Users.Remove(user);
+            }
+            else
+            {
+                await _notice.Open(new NotificationConfig()
+                {
+                    Message = "پیام خطا",
+                    Description = result.Message,
+                    NotificationType = NotificationType.Error
+                });
+            }
+            Loading = false;
+        }
+        public void Cancel()
+        {
+            // --
         }
         public async Task ChangeState(int id)
         {
