@@ -65,9 +65,9 @@
                             <Icon Type="check" Theme="outline" />
                         }
                     </button>
-                    <button class="btn btn-primary" @onclick="@(() => Edit(context.Id))">
-                        <Icon Type="highlight" Theme="outline" />
-                    </button>
+                    <a href="/dashboard/admins/edit/@context.Id" class="btn btn-primary">
+                         <Icon Type="highlight" Theme="outline" />
+                    </a>
                 </ActionColumn>
             </Table>
 

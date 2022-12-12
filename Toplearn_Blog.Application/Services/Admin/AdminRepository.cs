@@ -79,5 +79,28 @@ namespace Toplearn_Blog.Application.Services.Admin
                 throw;
             }
         }
+
+        public async Task<User> FindById(int id)
+        {
+            var result = _context.Users.Where(p => p.Id == id).FirstOrDefault();
+
+            return await Task.FromResult(result);
+        }
+
+        public async Task<bool> Update(User user)
+        {
+            _context.Users.Update(user);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+        }
     }
 }

@@ -27,5 +27,15 @@ namespace Toplearn_Blog.Dashboard.Repositories.Admin
         {
             return _http.Post<bool, int>($"{baseUrl}/remove" , Id);
         }
+
+        public Task<ResponseDto<UserDto>> GetUserById(int id)
+        {
+            return _http.Get<UserDto>($"{baseUrl}/find?id={id}");
+        }
+
+        public Task<ResponseDto<bool>> Update(UserDto user)
+        {
+            return _http.Post<bool, UserDto>($"{baseUrl}/update" , user);
+        }
     }
 }

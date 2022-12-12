@@ -7,6 +7,8 @@ namespace Toplearn_Blog.Dashboard.Repositories.Admin
     {
         Task<ResponseDto<bool>> Create(UserDto user);
         Task<ResponseDto<List<UserDto>>> GetAll(Paginate paginate);
-        Task<ResponseDto<bool>> Remove(int Id);
+        Task<ResponseDto<bool>> Remove(int id);
+        Task<ResponseDto<UserDto>> GetUserById(int id);
+        Task<ResponseDto<bool>> Update(UserDto user);
     }
 }

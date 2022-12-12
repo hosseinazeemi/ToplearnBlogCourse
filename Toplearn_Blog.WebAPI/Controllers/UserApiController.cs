@@ -54,5 +54,21 @@ namespace Toplearn_Blog.WebAPI.Controllers
 
             return new ResponseDto<bool>(true , "موفقیت آمیز" , result);
         }
+
+        [HttpGet("find")]
+        public ResponseDto<UserDto> Find([FromQuery]int id)
+        {
+            var result = _adminRepository.FindById(id).GetAwaiter().GetResult();
+            var mapData = _autoMapper.Map<User, UserDto>(result);
+            return new ResponseDto<UserDto>(true, "موفقیت آمیز", mapData);
+        }
+
+        [HttpPost("update")]
+        public ResponseDto<bool> Update([FromBody]UserDto user)
+        {
+            var mapData = _autoMapper.Map<UserDto, User>(user);
+            var result = _adminRepository.Update(mapData).GetAwaiter().GetResult();
+            return new ResponseDto<bool>(true , "موفقیت آمیز" , result);
+        }
     }
 }

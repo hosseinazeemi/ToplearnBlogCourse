@@ -12,7 +12,9 @@ namespace Toplearn_Blog.Application.Interfaces.Admin
     public interface IAdminRepository
     {
         Task<bool> Create(User user);
+        Task<User> FindById(int id);
         Task<RepoResultDto<List<User>>> GetAll(Paginate paginate);
         Task<bool> Remove(int Id);
+        Task<bool> Update(User user);
     }
 }

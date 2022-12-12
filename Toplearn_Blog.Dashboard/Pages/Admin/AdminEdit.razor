@@ -1,0 +1,56 @@
+﻿@page "/dashboard/admins/edit/{Id:int}"
+
+<PageTitle>
+    پنل مدیریت | ویرایش مدیر
+</PageTitle>
+<div class="card-body">
+    <Breadcrumb Class="pb-3 border-bottom">
+        <BreadcrumbItem>داشبورد</BreadcrumbItem>
+        <BreadcrumbItem>مدیر</BreadcrumbItem>
+        <BreadcrumbItem>ویرایش مدیر</BreadcrumbItem>
+    </Breadcrumb>
+    <div class="pt-3">
+        <h6 class="pb-3 fw-bold">ویرایش مدیر</h6>
+
+        <Spin Spinning="@Loading">
+            <div>
+                <EditForm Model="User" OnValidSubmit="Update">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="row">
+                        <div class="col-lg-6 mb-3">
+                            <label for="name" class="form-label">نام</label>
+                            <input type="text" class="form-control" @bind-value="User.Name" id="Name" placeholder="نام را وارد کنید">
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label for="LastName" class="form-label">نام خانوادگی</label>
+                            <input type="text" class="form-control" @bind-value="User.LastName" id="LastName" placeholder="نام خانوادگی را وارد کنید">
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label for="Email" class="form-label">ایمیل</label>
+                            <input type="email" class="form-control" @bind-value="User.Email" id="Email" placeholder="ایمیل را وارد کنید">
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label for="Phone" class="form-label">شماره تماس</label>
+                            <input type="text" class="form-control" @bind-value="User.Phone" id="Phone" placeholder="شماره تماس را وارد کنید">
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <div class="col-lg-12">
+                             <label class="form-label">این مدیر فعال است  یا نیست ؟</label>
+                            </div>
+                            <div class="col-lg-12">
+                                 <Checkbox @bind-Checked="User.IsActive">
+                                فعال/غیر فعال
+                            </Checkbox>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">ثبت اطلاعات</button>
+                </EditForm>
+            </div>
+        </Spin>
+
+    </div>
+</div>
