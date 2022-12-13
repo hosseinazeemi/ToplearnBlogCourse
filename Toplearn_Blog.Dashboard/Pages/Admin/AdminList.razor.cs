@@ -75,7 +75,30 @@ namespace Toplearn_Blog.Dashboard.Pages.Admin
         }
         public async Task ChangeState(int id)
         {
+            Loading = true;
+            var result = await _repo.ChangeState(id);
 
+            if (result.Status)
+            {
+                await _notice.Open(new NotificationConfig()
+                {
+                    Message = "پیام تایید",
+                    Description = result.Message,
+                    NotificationType = NotificationType.Success
+                });
+
+                Users.Where(p => p.Id == id).ForEach(p => p.IsActive = !p.IsActive);
+            }
+            else
+            {
+                await _notice.Open(new NotificationConfig()
+                {
+                    Message = "پیام خطا",
+                    Description = result.Message,
+                    NotificationType = NotificationType.Error
+                });
+            }
+            Loading = false;
         }
         public async Task Edit(int id)
         {

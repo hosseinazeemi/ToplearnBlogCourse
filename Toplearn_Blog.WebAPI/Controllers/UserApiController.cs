@@ -70,5 +70,11 @@ namespace Toplearn_Blog.WebAPI.Controllers
             var result = _adminRepository.Update(mapData).GetAwaiter().GetResult();
             return new ResponseDto<bool>(true , "موفقیت آمیز" , result);
         }
+        [HttpPost("changeState")]
+        public ResponseDto<bool> ChangeState([FromBody]int id)
+        {
+            var result = _adminRepository.ChangeState(id).GetAwaiter().GetResult();
+            return new ResponseDto<bool>(true , "موفقیت آمیز" , result);
+        }
     }
 }

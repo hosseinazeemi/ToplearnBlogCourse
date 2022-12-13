@@ -102,5 +102,26 @@ namespace Toplearn_Blog.Application.Services.Admin
                 throw;
             }
         }
+
+        public async Task<bool> ChangeState(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+
+            try
+            {
+                if (user != null)
+                {
+                    user.IsActive = !user.IsActive;
+                    _context.SaveChanges();
+                    return true;
+                }
+                throw new ArgumentNullException(null , "User Model Is Null");
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+        }
     }
 }

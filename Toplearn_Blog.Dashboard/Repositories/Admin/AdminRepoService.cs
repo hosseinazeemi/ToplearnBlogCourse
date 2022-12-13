@@ -37,5 +37,10 @@ namespace Toplearn_Blog.Dashboard.Repositories.Admin
         {
             return _http.Post<bool, UserDto>($"{baseUrl}/update" , user);
         }
+
+        public Task<ResponseDto<bool>> ChangeState(int id)
+        {
+            return _http.Post<bool, int>($"{baseUrl}/changeState" , id);
+        }
     }
 }
