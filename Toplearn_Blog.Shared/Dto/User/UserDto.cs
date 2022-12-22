@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toplearn_Blog.Shared.Dto.Media;
 
 namespace Toplearn_Blog.Shared.Dto.User
 {
@@ -21,5 +22,6 @@ namespace Toplearn_Blog.Shared.Dto.User
         public string Password { get; set; }
         public string Phone { get; set; }
         public bool IsActive { get; set; }
+        public List<MediaDto> Files { get; set; }
     }
 }

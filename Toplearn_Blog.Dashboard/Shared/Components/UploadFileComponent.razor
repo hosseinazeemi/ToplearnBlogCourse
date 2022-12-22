@@ -1,0 +1,111 @@
+﻿@using Tewr.Blazor.FileReader
+@using Toplearn_Blog.Shared.Dto.Media
+@inject IFileReaderService reader
+
+<div>
+    <label for="formFile" class="form-label">لطفا فایل های مورد نظر را انتخاب نمایید</label>
+    <input class="form-control" type="file" @ref="FileUploadRefrence" @onchange="OnSelectFile" multiple id="formFile">
+</div>
+
+@if (Media != null)
+{
+    <div class="pt-4 pb-4">
+        <Spin Spinning="@Loading" Class="mt-0">
+            <div class="row mb-2 file-gallery pb-3">
+                @foreach (var item in Media)
+                {
+                    <div class="col-lg-3 text-center p-2">
+                        <!-- Preview -->
+                        <embed type="@item.MimeType" src="data:@item.MimeType;base64,@(Convert.ToBase64String(item.Bytes))">
+                        <div class="col-lg-12 text-center">
+                            <Popconfirm Title="آیا برای حذف این فایل اطمینان دارید ؟"
+                                OkText="بله"
+                                OnCancel="Cancel"
+                                OnConfirm="@(() => RemoveFile(item.Name))"
+                                CancelText="خیر">
+                                <button class="btn btn-danger rounded" type="button">
+                                    <Icon Type="delete" />
+                                </button>
+                            </Popconfirm>
+                        </div>
+                    </div>
+                }
+
+                <div class="col-lg-12 border-top p-2 mt-2 rounded-0 text-center">
+                    <button type="button" @onclick="ConfirmFiles" class="btn btn-primary">برای تایید فایل ها کلیک کنید</button>
+                </div>
+            </div>
+        </Spin>
+    </div>
+
+}
+@code {
+    public ElementReference FileUploadRefrence { get; set; }
+    public byte[] FileBytes { get; set; }
+    [Parameter]
+    public EventCallback<List<MediaDto>> FileCallback { get; set; }
+    public List<MediaDto> Media { get; set; }
+    public bool Loading { get; set; }
+    public void Cancel()
+    {
+        // ....
+    }
+    public void RemoveFile(string fileName)
+    {
+        Loading = true;
+        var file = Media.Where(p => p.Name == fileName).FirstOrDefault();
+        Media.Remove(file);
+        Loading = false;
+        StateHasChanged();
+    }
+    public async Task OnSelectFile()
+    {
+        Loading = true;
+        Media = new List<MediaDto>();
+        foreach (var item in await reader.CreateReference(FileUploadRefrence).EnumerateFilesAsync())
+        {
+            using (MemoryStream ms = await item.CreateMemoryStreamAsync(4096))
+            {
+                FileBytes = new byte[ms.Length];
+                ms.Read(FileBytes, 0, (int)ms.Length);
+            }
+            var fileInfo = item.ReadFileInfoAsync().Result;
+            Media.Add(new MediaDto
+                {
+                    Bytes = FileBytes,
+                    Extension = fileInfo.Name.Split(".")[1],
+                    MimeType = fileInfo.Type,
+                    Name = fileInfo.Name
+                });
+        }
+        Loading = false;
+    }
+    public async Task ConfirmFiles()
+    {
+        Loading = true;
+        await FileCallback.InvokeAsync(Media);
+        Loading = false;
+    }
+}
+
+<style>
+    .file-gallery {
+        padding: 10px;
+        background: #fcfcfc;
+        border: 1px solid #ededed;
+        border-radius: 10px;
+        justify-content: center;
+        align-items: end;
+    }
+
+        .file-gallery > div {
+            background: white;
+            border-radius: 10px;
+        }
+
+            .file-gallery > div > embed {
+                width: 100%;
+                height: 180px;
+                border-radius: 10px;
+            }
+</style>

@@ -61,14 +61,14 @@ a {
     border-radius: 8px;
 }
 .ant-menu.ant-menu-dark, .ant-menu-dark .ant-menu-sub, .ant-menu.ant-menu-dark .ant-menu-sub {
-    border-radius: 10px;
+    border-radius: 4px;
     text-align: right;
 }
 .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected{
-    border-radius:8px;
+    border-radius:4px;
 }
 .ant-menu-item{
-    border-radius:8px;
+    border-radius:4px;
 }
 .ant-form-rtl .ant-form-item-label{
     text-align:right;

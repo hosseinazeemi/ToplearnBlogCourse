@@ -1,0 +1,16 @@
+﻿@using Toplearn_Blog.Dashboard.Shared.Components
+
+<div>
+    <EditForm Model="Category" OnValidSubmit="SubmitCallback">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="row">
+            <div class="col-lg-6 mb-3">
+                <label for="name" class="form-label">نام دسته بندی</label>
+                <input type="text" class="form-control" @bind-value="Category.Name" id="Name" placeholder="نام را وارد کنید">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">ثبت اطلاعات</button>
+    </EditForm>
+</div>

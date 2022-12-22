@@ -22,19 +22,19 @@ namespace Toplearn_Blog.Application.Services.Admin
             _context = context;
         }
 
-        public Task<bool> Create(User model)
+        public async Task<int> Create(User model)
         {
             _context.Users.Add(model);
            
             try
             {
                 //_context.SaveChangesAsync();
-                _context.SaveChangesAsync().GetAwaiter().GetResult();
-                return Task.FromResult(true);
+                await _context.SaveChangesAsync();
+                return model.Id;
             }
             catch (Exception)
             {
-                return Task.FromResult(false);
+                return await Task.FromResult(0);
             }
         }
 

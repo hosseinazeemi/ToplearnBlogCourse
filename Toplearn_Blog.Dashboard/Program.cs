@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Tewr.Blazor.FileReader;
 using Toplearn_Blog.Dashboard;
 using Toplearn_Blog.Dashboard.Repositories.Admin;
+using Toplearn_Blog.Dashboard.Repositories.Category;
 using Toplearn_Blog.Dashboard.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -13,5 +15,7 @@ builder.Services.AddScoped(sp => new HttpClient
 
 builder.Services.AddScoped<IHttpService, HttpService>();
 builder.Services.AddScoped<IAdminRepoService , AdminRepoService>();
+builder.Services.AddScoped<ICateogoryRepoService , CategoryRepoService>();
 builder.Services.AddAntDesign();
+builder.Services.AddFileReaderService();
 await builder.Build().RunAsync();

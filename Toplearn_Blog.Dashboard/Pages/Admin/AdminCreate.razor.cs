@@ -5,6 +5,7 @@ using System.Text;
 using Toplearn_Blog.Dashboard.Repositories.Admin;
 using Toplearn_Blog.Dashboard.Services;
 using Toplearn_Blog.Shared.Dto.Global;
+using Toplearn_Blog.Shared.Dto.Media;
 using Toplearn_Blog.Shared.Dto.User;
 
 namespace Toplearn_Blog.Dashboard.Pages.Admin
@@ -21,6 +22,7 @@ namespace Toplearn_Blog.Dashboard.Pages.Admin
         protected override Task OnInitializedAsync()
         {
             User = new UserDto();
+            User.Files = new List<MediaDto>();
             return base.OnInitializedAsync();
         }
 
@@ -40,6 +42,16 @@ namespace Toplearn_Blog.Dashboard.Pages.Admin
             Loading = false;
         }
 
+        public async Task OnSelectFile(List<MediaDto> files)
+        {
+            User.Files.AddRange(files);
+            await _notice.Open(new NotificationConfig()
+            {
+                Message = "موفقیت آمیز",
+                Description = "فایل ها با موفقیت انتخاب شدند",
+                NotificationType = NotificationType.Success
+            });
+        }
         private async Task NoticeWithIcon(NotificationType type , string title , string description)
         {
             await _notice.Open(new NotificationConfig()

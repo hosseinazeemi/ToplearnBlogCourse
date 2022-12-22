@@ -1,8 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using Toplearn_Blog.Application.Interfaces;
 using Toplearn_Blog.Application.Interfaces.Admin;
 using Toplearn_Blog.Application.Interfaces.Context;
+using Toplearn_Blog.Application.Services;
 using Toplearn_Blog.Application.Services.Admin;
 using Toplearn_Blog.Persistence.Context;
+using Toplearn_Blog.WebAPI.Helper;
+using Toplearn_Blog.WebAPI.Service;
 
 namespace Toplearn_Blog.WebAPI
 {
@@ -22,6 +26,9 @@ namespace Toplearn_Blog.WebAPI
             builder.Services.AddDbContext<DatabaseContext>(op => op.UseSqlServer(connection));
             builder.Services.AddScoped<IDatabaseContext , DatabaseContext>();
             builder.Services.AddTransient<IAdminRepository, AdminRepository>();
+            builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddTransient<IMediaRepository, MediaRepository>();
+            builder.Services.AddScoped<IFileService, FileService>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             string siteUrl = builder.Configuration.GetSection("Urls")["SiteUrl"];
             builder.Services.AddCors(options =>

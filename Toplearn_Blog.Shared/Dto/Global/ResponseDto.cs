@@ -29,6 +29,6 @@ namespace Toplearn_Blog.Shared.Dto.Global
         public bool Status { get; set; }
         public string Message { get; set; }
         public TResult Data { get; set; }
-        public Paginate Paginate { get; set; }
+        public Paginate Paginate { get; set; } = new Paginate();
     }
 }

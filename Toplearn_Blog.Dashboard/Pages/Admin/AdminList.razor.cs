@@ -68,6 +68,7 @@ namespace Toplearn_Blog.Dashboard.Pages.Admin
                 });
             }
             Loading = false;
+            StateHasChanged();
         }
         public void Cancel()
         {
@@ -80,14 +81,13 @@ namespace Toplearn_Blog.Dashboard.Pages.Admin
 
             if (result.Status)
             {
+                Users.Where(p => p.Id == id).ForEach(p => p.IsActive = !p.IsActive);
                 await _notice.Open(new NotificationConfig()
                 {
                     Message = "پیام تایید",
                     Description = result.Message,
                     NotificationType = NotificationType.Success
                 });
-
-                Users.Where(p => p.Id == id).ForEach(p => p.IsActive = !p.IsActive);
             }
             else
             {
@@ -99,10 +99,6 @@ namespace Toplearn_Blog.Dashboard.Pages.Admin
                 });
             }
             Loading = false;
-        }
-        public async Task Edit(int id)
-        {
-
         }
     }
 }
