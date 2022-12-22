@@ -1,5 +1,28 @@
-﻿<h3>CategoryEdit</h3>
+﻿@page "/dashboard/categories/edit/{Id:int}"
+@using Toplearn_Blog.Dashboard.Shared.Components
+<PageTitle>
+    پنل مدیریت | ویرایش دسته بندی جدید
+</PageTitle>
+<div class="card-body">
+    <Breadcrumb Class="pb-3 border-bottom">
+        <BreadcrumbItem>داشبورد</BreadcrumbItem>
+        <BreadcrumbItem>دسته بندی</BreadcrumbItem>
+        <BreadcrumbItem>ویرایش دسته بندی</BreadcrumbItem>
+    </Breadcrumb>
 
-@code {
-
-}
+    <div class="pt-3">
+        <h6 class="pb-3 fw-bold">
+            ویرایش دسته بندی
+            @if (Category != null)
+            {
+                @Category.Name
+            }
+        </h6>
+        <Spin Spinning="@Loading">
+            @if (Category != null)
+            {
+                <CategoryForm Category="Category" SubmitCallback="Submit" />
+            }
+        </Spin>
+    </div>
+</div>

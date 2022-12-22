@@ -34,5 +34,9 @@ namespace Toplearn_Blog.Dashboard.Repositories.Category
             return _http.Post<bool, CategoryDto>($"{baseUrl}/update", category);
         }
 
+        public Task<ResponseDto<CategoryDto>> GetCategoryById(int id)
+        {
+            return _http.Get<CategoryDto>($"{baseUrl}/find?id={id}");
+        }
     }
 }
