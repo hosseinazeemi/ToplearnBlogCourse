@@ -27,6 +27,7 @@ namespace Toplearn_Blog.WebAPI
             builder.Services.AddScoped<IDatabaseContext , DatabaseContext>();
             builder.Services.AddTransient<IAdminRepository, AdminRepository>();
             builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddTransient<ITagRepository, TagRepository>();
             builder.Services.AddTransient<IMediaRepository, MediaRepository>();
             builder.Services.AddScoped<IFileService, FileService>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

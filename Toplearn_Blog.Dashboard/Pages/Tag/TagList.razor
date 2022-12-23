@@ -1,22 +1,22 @@
-﻿@page "/dashboard/categories/list"
+﻿@page "/dashboard/tags/list"
 
 @using System.ComponentModel
 @using AntDesign.TableModels
-@using Toplearn_Blog.Shared.Dto.Category
+@using Toplearn_Blog.Shared.Dto.Tag
 
 <PageTitle>
-    پنل مدیریت | لیست دسته بندی
+    پنل مدیریت | لیست برچسب ها
 </PageTitle>
 <div class="card-body">
     <Breadcrumb Class="pb-3 border-bottom">
         <BreadcrumbItem>داشبورد</BreadcrumbItem>
-        <BreadcrumbItem>دسته بندی</BreadcrumbItem>
-        <BreadcrumbItem>لیست دسته بندی</BreadcrumbItem>
+        <BreadcrumbItem>برچسب</BreadcrumbItem>
+        <BreadcrumbItem>لیست برچسب ها</BreadcrumbItem>
     </Breadcrumb>
     <div class="pt-3">
-        <h6 class="pb-3 fw-bold">لیست دسته بندی ها</h6>
+        <h6 class="pb-3 fw-bold">لیست برچسب ها</h6>
         <Spin Spinning="Loading">
-            <Table TItem="CategoryDto" OnPageIndexChange="ChangePage" DataSource="@Categories" 
+            <Table TItem="TagDto" OnPageIndexChange="ChangePage" DataSource="@Tags" 
                 PageIndex="@PageInfo.CurrentPage" Total="@PageInfo.AllItemsCount" PageSize="@PageInfo.Take">
                 <PropertyColumn Title="شناسه" Property="c=>c.Id">
                     <a>@context.Id</a>
@@ -34,7 +34,7 @@
                             <Icon Type="delete" Theme="outline" />
                         </button>
                     </Popconfirm>
-                    <a href="/dashboard/categories/edit/@context.Id" class="btn btn-primary">
+                    <a href="/dashboard/tags/edit/@context.Id" class="btn btn-primary">
                          <Icon Type="highlight" Theme="outline" />
                     </a>
                 </ActionColumn>

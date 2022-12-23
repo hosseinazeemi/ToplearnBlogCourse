@@ -1,0 +1,28 @@
+﻿@page "/dashboard/tags/edit/{Id:int}"
+@using Toplearn_Blog.Dashboard.Shared.Components
+<PageTitle>
+    پنل مدیریت | ویرایش برچسب
+</PageTitle>
+<div class="card-body">
+    <Breadcrumb Class="pb-3 border-bottom">
+        <BreadcrumbItem>داشبورد</BreadcrumbItem>
+        <BreadcrumbItem>برچسب</BreadcrumbItem>
+        <BreadcrumbItem>ویرایش برچسب</BreadcrumbItem>
+    </Breadcrumb>
+
+    <div class="pt-3">
+        <h6 class="pb-3 fw-bold">
+            ویرایش برچسب
+            @if (Tag != null)
+            {
+                @Tag.Name
+            }
+        </h6>
+        <Spin Spinning="@Loading">
+            @if (Tag != null)
+            {
+                <TagForm Tag="Tag" SubmitCallback="Submit" />
+            }
+        </Spin>
+    </div>
+</div>

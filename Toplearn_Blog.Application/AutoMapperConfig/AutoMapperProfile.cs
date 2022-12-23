@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Toplearn_Blog.Domain.Entities;
 using Toplearn_Blog.Shared.Dto.Category;
 using Toplearn_Blog.Shared.Dto.Media;
+using Toplearn_Blog.Shared.Dto.Tag;
 using Toplearn_Blog.Shared.Dto.User;
 
 namespace Toplearn_Blog.Application.AutoMapperConfig
@@ -21,6 +22,8 @@ namespace Toplearn_Blog.Application.AutoMapperConfig
             CreateMap<DeleteMediaDto, Media>();
             CreateMap<Category, CategoryDto>();
             CreateMap<CategoryDto , Category>();
+            CreateMap<TagDto , Tag>();
+            CreateMap<Tag , TagDto>();
         }
     }
 }

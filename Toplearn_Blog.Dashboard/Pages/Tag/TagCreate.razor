@@ -1,0 +1,19 @@
+﻿@page "/dashboard/tags/create"
+@using Toplearn_Blog.Dashboard.Shared.Components
+<PageTitle>
+    پنل مدیریت | ثبت برچسب جدید
+</PageTitle>
+<div class="card-body">
+    <Breadcrumb Class="pb-3 border-bottom">
+        <BreadcrumbItem>داشبورد</BreadcrumbItem>
+        <BreadcrumbItem>برچسب</BreadcrumbItem>
+        <BreadcrumbItem>ایجاد برچسب</BreadcrumbItem>
+    </Breadcrumb>
+
+    <div class="pt-3">
+        <h6 class="pb-3 fw-bold">ایجاد برچسب جدید</h6>
+        <Spin Spinning="@Loading">
+            <TagForm Tag="Tag" SubmitCallback="Submit" />
+        </Spin>
+    </div>
+</div>
