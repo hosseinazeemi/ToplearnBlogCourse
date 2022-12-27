@@ -17,5 +17,6 @@ namespace Toplearn_Blog.Application.Interfaces.Admin
         Task<bool> Remove(int Id);
         Task<bool> Update(User user);
         Task<bool> ChangeState(int id);
+        Task<List<User>> GetAll();
     }
 }

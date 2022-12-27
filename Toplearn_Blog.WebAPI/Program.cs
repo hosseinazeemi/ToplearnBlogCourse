@@ -30,8 +30,10 @@ namespace Toplearn_Blog.WebAPI
             builder.Services.AddTransient<ITagRepository, TagRepository>();
             builder.Services.AddTransient<IMediaRepository, MediaRepository>();
             builder.Services.AddScoped<IFileService, FileService>();
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             string siteUrl = builder.Configuration.GetSection("Urls")["SiteUrl"];
+
             builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
@@ -56,8 +58,8 @@ namespace Toplearn_Blog.WebAPI
 
             app.UseHttpsRedirection();
             app.UseCors();
+            app.UseStaticFiles();
             app.UseAuthorization();
-
             app.MapControllers();
 
             app.Run();

@@ -76,3 +76,6 @@ a {
 .table-action button span{
     font-size:22px;
 }
+.ck-content {
+    min-height: 160px !important;
+}

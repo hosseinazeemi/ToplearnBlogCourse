@@ -59,7 +59,21 @@ namespace Toplearn_Blog.Application.Services.Admin
             };
             return await Task.FromResult(result);
         }
+        public async Task<List<User>> GetAll()
+        {
+            var queryable = _context.Users.AsQueryable();
+            var data = queryable.Select(item => new User
+            {
+                Id = item.Id,
+                Name = item.Name,
+                LastName = item.LastName,
+                Phone = item.Phone,
+                Email = item.Email,
+                IsActive = item.IsActive
+            }).ToList();
 
+            return await Task.FromResult(data);
+        }
         public async Task<bool> Remove(int id)
         {
             User user = new User

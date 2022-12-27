@@ -1,27 +1,27 @@
 ﻿using AntDesign;
 using Microsoft.AspNetCore.Components;
-using Toplearn_Blog.Dashboard.Repositories.Tag;
-using Toplearn_Blog.Shared.Dto.Tag;
+using Toplearn_Blog.Dashboard.Repositories.Category;
+using Toplearn_Blog.Shared.Dto.Category;
 
-namespace Toplearn_Blog.Dashboard.Pages.Tag
+namespace Toplearn_Blog.Dashboard.Pages.CategoryComponents
 {
-    public partial class TagCreate
+    public partial class CategoryCreate
     {
         public bool Loading { get; set; }
-        public TagDto Tag { get; set; }
+        public CategoryDto Category { get; set; }
         [Inject]
-        private ITagRepoService _repo { get; set; }
+        private ICateogoryRepoService _repo { get; set; }
         [Inject]
         NotificationService _notice { get; set; }
         protected override void OnInitialized()
         {
-            Tag = new TagDto();
+            Category = new CategoryDto();
             base.OnInitialized();
         }
         public async Task Submit()
         {
             Loading = true;
-            var result = await _repo.Create(Tag);
+            var result = await _repo.Create(Category);
             if (result.Status)
             {
                 await _notice.Open(new NotificationConfig()
@@ -30,8 +30,7 @@ namespace Toplearn_Blog.Dashboard.Pages.Tag
                     Description = result.Message,
                     NotificationType = NotificationType.Success
                 });
-            }
-            else
+            }else
             {
                 await _notice.Open(new NotificationConfig()
                 {

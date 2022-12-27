@@ -1,16 +1,16 @@
 ﻿using AntDesign;
 using Microsoft.AspNetCore.Components;
-using Toplearn_Blog.Dashboard.Repositories.Tag;
-using Toplearn_Blog.Shared.Dto.Tag;
+using Toplearn_Blog.Dashboard.Repositories.Category;
+using Toplearn_Blog.Shared.Dto.Category;
 
-namespace Toplearn_Blog.Dashboard.Pages.Tag
+namespace Toplearn_Blog.Dashboard.Pages.CategoryComponents
 {
-    public partial class TagEdit
+    public partial class CategoryEdit
     {
         public bool Loading { get; set; }
-        public TagDto Tag { get; set; }
+        public CategoryDto Category { get; set; }
         [Inject]
-        private ITagRepoService _repo { get; set; }
+        private ICateogoryRepoService _repo { get; set; }
         [Inject]
         NotificationService _notice { get; set; }
         [Parameter]
@@ -18,10 +18,10 @@ namespace Toplearn_Blog.Dashboard.Pages.Tag
         protected override async Task OnInitializedAsync()
         {
             Loading = true;
-            var result = await _repo.GetTagById(Id);
+            var result = await _repo.GetCategoryById(Id);
             if (result.Status)
             {
-                Tag = result.Data;
+                Category = result.Data;
                 await _notice.Open(new NotificationConfig()
                 {
                     Message = "اطلاعات دریافت شد",
@@ -44,7 +44,7 @@ namespace Toplearn_Blog.Dashboard.Pages.Tag
         public async Task Submit()
         {
             Loading = true;
-            var result = await _repo.Update(Tag);
+            var result = await _repo.Update(Category);
             if (result.Status)
             {
                 await _notice.Open(new NotificationConfig()

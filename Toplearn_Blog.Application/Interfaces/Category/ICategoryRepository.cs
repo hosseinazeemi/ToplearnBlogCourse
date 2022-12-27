@@ -12,7 +12,8 @@ namespace Toplearn_Blog.Application.Interfaces
     {
         Task<int> Create(Category category);
         Task<Category> FindById(int id);
-        Task<RepoResultDto<List<Category>>> GetAll(Paginate paginate);
+        Task<List<Category>> GetAll();
+        Task<RepoResultDto<List<Category>>> List(Paginate paginate);
         Task<bool> Remove(int Id);
         Task<bool> Update(Category category);
     }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Toplearn_Blog.Shared.Dto.Category;
 
-namespace Toplearn_Blog.Dashboard.Pages.Category
+namespace Toplearn_Blog.Dashboard.Pages.CategoryComponents
 {
     public partial class CategoryForm
     {

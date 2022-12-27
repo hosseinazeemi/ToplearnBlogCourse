@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Toplearn_Blog.Shared.Dto.Tag;
 
-namespace Toplearn_Blog.Dashboard.Pages.Tag
+namespace Toplearn_Blog.Dashboard.Pages.TagComponents
 {
     public partial class TagForm
     {

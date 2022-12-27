@@ -11,5 +11,6 @@ namespace Toplearn_Blog.Dashboard.Repositories.Admin
         Task<ResponseDto<UserDto>> GetUserById(int id);
         Task<ResponseDto<bool>> Update(UserDto user);
         Task<ResponseDto<bool>> ChangeState(int id);
+        Task<ResponseDto<List<UserDto>>> GetAll();
     }
 }

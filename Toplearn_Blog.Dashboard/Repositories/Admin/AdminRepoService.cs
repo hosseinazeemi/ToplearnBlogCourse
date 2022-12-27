@@ -22,7 +22,10 @@ namespace Toplearn_Blog.Dashboard.Repositories.Admin
         {
             return _http.Get<List<UserDto>>($"{baseUrl}/list?CurrentPage={paginate.CurrentPage}&Take={paginate.Take}");
         }
-
+        public Task<ResponseDto<List<UserDto>>> GetAll()
+        {
+            return _http.Get<List<UserDto>>($"{baseUrl}/getAll");
+        }
         public Task<ResponseDto<bool>> Remove(int Id)
         {
             return _http.Post<bool, int>($"{baseUrl}/remove" , Id);

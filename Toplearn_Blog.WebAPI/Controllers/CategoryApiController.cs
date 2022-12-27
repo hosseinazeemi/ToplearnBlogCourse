@@ -37,13 +37,21 @@ namespace Toplearn_Blog.WebAPI.Controllers
         [HttpGet("list")]
         public ResponseDto<List<CategoryDto>> List([FromQuery] Paginate paginate)
         {
-            var result = _categoryRepository.GetAll(paginate).GetAwaiter().GetResult();
+            var result = _categoryRepository.List(paginate).GetAwaiter().GetResult();
 
             // map
             var mapData = _autoMapper.Map<List<Category>, List<CategoryDto>>(result.Data);
             return new ResponseDto<List<CategoryDto>>(true, "دریافت شد", mapData, result.Paginate);
         }
+        [HttpGet("getAll")]
+        public ResponseDto<List<CategoryDto>> GetAll()
+        {
+            var result = _categoryRepository.GetAll().GetAwaiter().GetResult();
 
+            // map
+            var mapData = _autoMapper.Map<List<Category>, List<CategoryDto>>(result);
+            return new ResponseDto<List<CategoryDto>>(true, "دریافت شد", mapData);
+        }
         [HttpPost("remove")]
         public ResponseDto<bool> Remove([FromBody] int id)
         {

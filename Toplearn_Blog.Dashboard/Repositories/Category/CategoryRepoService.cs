@@ -22,12 +22,15 @@ namespace Toplearn_Blog.Dashboard.Repositories.Category
         {
             return _http.Get<List<CategoryDto>>($"{baseUrl}/list?CurrentPage={paginate.CurrentPage}&Take={paginate.Take}");
         }
+        public Task<ResponseDto<List<CategoryDto>>> GetAll()
+        {
+            return _http.Get<List<CategoryDto>>($"{baseUrl}/getAll");
+        }
 
         public Task<ResponseDto<bool>> Remove(int id)
         {
             return _http.Post<bool, int>($"{baseUrl}/remove", id);
         }
-
 
         public Task<ResponseDto<bool>> Update(CategoryDto category)
         {

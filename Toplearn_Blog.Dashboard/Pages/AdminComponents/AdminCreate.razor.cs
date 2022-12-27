@@ -8,7 +8,7 @@ using Toplearn_Blog.Shared.Dto.Global;
 using Toplearn_Blog.Shared.Dto.Media;
 using Toplearn_Blog.Shared.Dto.User;
 
-namespace Toplearn_Blog.Dashboard.Pages.Admin
+namespace Toplearn_Blog.Dashboard.Pages.AdminComponents
 {
     public partial class AdminCreate
     {

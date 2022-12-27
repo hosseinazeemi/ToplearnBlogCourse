@@ -1,18 +1,18 @@
 ﻿using AntDesign;
 using Microsoft.AspNetCore.Components;
-using Toplearn_Blog.Dashboard.Repositories.Category;
-using Toplearn_Blog.Shared.Dto.Category;
+using Toplearn_Blog.Dashboard.Repositories.Admin;
 using Toplearn_Blog.Shared.Dto.Global;
+using Toplearn_Blog.Shared.Dto.User;
 
-namespace Toplearn_Blog.Dashboard.Pages.Category
+namespace Toplearn_Blog.Dashboard.Pages.AdminComponents
 {
-    public partial class CategoryList
+    public partial class AdminList
     {
         [Inject]
-        private ICateogoryRepoService _repo { get; set; }
+        private IAdminRepoService _repo { get; set; }
         [Inject]
         NotificationService _notice { get; set; }
-        public List<CategoryDto> Categories { get; set; }
+        public List<UserDto> Users { get; set; }
         public bool Loading { get; set; } = false;
         public Paginate PageInfo { get; set; }
         protected override async Task OnInitializedAsync()
@@ -27,11 +27,11 @@ namespace Toplearn_Blog.Dashboard.Pages.Category
             if (result.Status)
             {
                 PageInfo = result.Paginate;
-                Categories = result.Data;
+                Users = result.Data;
             }
             else
             {
-                Categories = new List<CategoryDto>();
+                Users = new List<UserDto>();
             }
             await Task.Delay(1000);
             Loading = false;
@@ -42,10 +42,10 @@ namespace Toplearn_Blog.Dashboard.Pages.Category
             PageInfo.Take = args.PageSize;
             await GetList(PageInfo);
         }
-        public async Task Remove(CategoryDto category)
+        public async Task Remove(UserDto user)
         {
             Loading = true;
-            var result = await _repo.Remove(category.Id);
+            var result = await _repo.Remove(user.Id);
 
             if (result.Status)
             {
@@ -56,7 +56,7 @@ namespace Toplearn_Blog.Dashboard.Pages.Category
                     NotificationType = NotificationType.Success
                 });
 
-                Categories.Remove(category);
+                Users.Remove(user);
             }
             else
             {
@@ -69,6 +69,36 @@ namespace Toplearn_Blog.Dashboard.Pages.Category
             }
             Loading = false;
             StateHasChanged();
+        }
+        public void Cancel()
+        {
+            // --
+        }
+        public async Task ChangeState(int id)
+        {
+            Loading = true;
+            var result = await _repo.ChangeState(id);
+
+            if (result.Status)
+            {
+                Users.Where(p => p.Id == id).ForEach(p => p.IsActive = !p.IsActive);
+                await _notice.Open(new NotificationConfig()
+                {
+                    Message = "پیام تایید",
+                    Description = result.Message,
+                    NotificationType = NotificationType.Success
+                });
+            }
+            else
+            {
+                await _notice.Open(new NotificationConfig()
+                {
+                    Message = "پیام خطا",
+                    Description = result.Message,
+                    NotificationType = NotificationType.Error
+                });
+            }
+            Loading = false;
         }
     }
 }

@@ -1,0 +1,121 @@
+﻿@using Toplearn_Blog.Dashboard.Shared.Components
+@using Toplearn_Blog.Shared.Dto.Category
+@using Toplearn_Blog.Shared.Dto.User
+
+<div>
+    <EditForm Model="News" Context="EditFormContext" OnValidSubmit="SubmitCallback">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="row">
+            <div class="col-lg-6 mb-3">
+                <label class="form-label">انتخاب دسته بندی</label>
+                @if (Categories != null)
+                {
+                    <Select TItem="CategoryDto"
+                        TItemValue="int"
+                        DataSource="@Categories"
+                        @bind-Value="@News.CategoryId"
+                        ValueName="@nameof(CategoryDto.Id)"
+                        LabelName="@nameof(CategoryDto.Name)"
+                        DefaultActiveFirstOption
+                        OnSelectedItemChanged="OnSelectedCategoryChangedHandler">
+                        <ItemTemplate>
+                            <span>@((context as CategoryDto).Name)</span>
+                        </ItemTemplate>
+                    </Select>
+                }
+            </div>
+            <div class="col-lg-6 mb-3">
+                <label class="form-label">انتخاب مدیر</label>
+                @if (Users != null)
+                {
+                    <Select TItem="UserDto"
+                        TItemValue="int"
+                        DataSource="@Users"
+                        @bind-Value="@News.UserId"
+                        ValueName="@nameof(UserDto.Id)"
+                        LabelName="@nameof(UserDto.Name)"
+                        DefaultActiveFirstOption>
+                        <ItemTemplate>
+                            <span>@((context as UserDto).Name) &nbsp; @((context as UserDto).LastName)</span>
+                        </ItemTemplate>
+                    </Select>
+                }
+            </div>
+            <div class="col-lg-6 mb-3">
+                <label for="title" class="form-label">عنوان</label>
+                <input type="text" class="form-control"
+                       @bind-value="News.Title"
+                       id="Title" placeholder="عنوان را وارد کنید">
+            </div>
+            <div class="col-lg-6 mb-3">
+                <label for="instagram" class="form-label">آدرس اینستاگرام</label>
+                <input type="text" class="form-control"
+                       @bind-value="News.Instagram"
+                       id="Instagram" placeholder="ادرس اینستاگرام را وارد کنید">
+            </div>
+            <div class="col-lg-6 mb-3">
+                <label for="facebook" class="form-label">آدرس فیس بوک</label>
+                <input type="text" class="form-control"
+                       @bind-value="News.Facebook"
+                       id="Facebook" placeholder="ادرس فیس بوک را وارد کنید">
+            </div>
+
+            <div class="col-lg-6 mb-3">
+                <label for="twitter" class="form-label">آدرس توئیت</label>
+                <input type="text" class="form-control"
+                       @bind-value="News.Twitter"
+                       id="Twitter" placeholder="ادرس توئیت را وارد کنید">
+            </div>
+            <div class="col-lg-12 mb-3">
+                <label for="description" class="form-label">توضیحات</label>
+                <CKEditor Id="description" @bind-Value="@News.Description" />
+            </div>
+            <div class="col-lg-3 mb-3">
+                <div class="col-lg-12">
+                    <label class="form-label">این خبر فعال است  یا نیست ؟</label>
+                </div>
+                <div class="col-lg-12">
+                    <Checkbox @bind-Checked="News.IsActive">
+                        فعال/غیر فعال
+                    </Checkbox>
+                </div>
+            </div>
+            <div class="col-lg-3 mb-3">
+                <div class="col-lg-12">
+                    <label class="form-label">این خبر منتخب است  یا نیست ؟</label>
+                </div>
+                <div class="col-lg-12">
+                    <Checkbox @bind-Checked="News.Selected">
+                        منتخب است / منتخب نیست
+                    </Checkbox>
+                </div>
+            </div>
+            <div class="col-lg-3 mb-3">
+                <div class="col-lg-12">
+                    <label class="form-label">این خبر محبوب است  یا نیست ؟</label>
+                </div>
+                <div class="col-lg-12">
+                    <Checkbox @bind-Checked="News.IsPopular">
+                        محبوب است / محبوب نیست
+                    </Checkbox>
+                </div>
+            </div>
+            <div class="col-lg-3 mb-3">
+                <div class="col-lg-12">
+                    <label class="form-label">این خبر پیشنهاد شده است یا خیر ؟</label>
+                </div>
+                <div class="col-lg-12">
+                    <Checkbox @bind-Checked="News.IsSuggest">
+                        پیشنهاد شده / پیشنهاد نشده
+                    </Checkbox>
+                </div>
+            </div>
+            <div class="col-lg-12 mb-3">
+                <UploadFileComponent FileCallback="OnSelectFile" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">ثبت اطلاعات</button>
+    </EditForm>
+</div>

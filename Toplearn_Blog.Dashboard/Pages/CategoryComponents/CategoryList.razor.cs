@@ -2,63 +2,67 @@
 using Microsoft.AspNetCore.Components;
 using Toplearn_Blog.Dashboard.Repositories.Category;
 using Toplearn_Blog.Shared.Dto.Category;
+using Toplearn_Blog.Shared.Dto.Global;
 
-namespace Toplearn_Blog.Dashboard.Pages.Category
+namespace Toplearn_Blog.Dashboard.Pages.CategoryComponents
 {
-    public partial class CategoryEdit
+    public partial class CategoryList
     {
-        public bool Loading { get; set; }
-        public CategoryDto Category { get; set; }
         [Inject]
         private ICateogoryRepoService _repo { get; set; }
         [Inject]
         NotificationService _notice { get; set; }
-        [Parameter]
-        public int Id { get; set; }
+        public List<CategoryDto> Categories { get; set; }
+        public bool Loading { get; set; } = false;
+        public Paginate PageInfo { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            Loading = true;
-            var result = await _repo.GetCategoryById(Id);
-            if (result.Status)
-            {
-                Category = result.Data;
-                await _notice.Open(new NotificationConfig()
-                {
-                    Message = "اطلاعات دریافت شد",
-                    Description = result.Message,
-                    NotificationType = NotificationType.Success
-                });
-            }
-            else
-            {
-                await _notice.Open(new NotificationConfig()
-                {
-                    Message = "خطا",
-                    Description = result.Message,
-                    NotificationType = NotificationType.Error
-                });
-            }
-            Loading = false;
-            StateHasChanged();
+            PageInfo = new Paginate();
+            await GetList(PageInfo);
         }
-        public async Task Submit()
+        public async Task GetList(Paginate paginate)
         {
             Loading = true;
-            var result = await _repo.Update(Category);
+            var result = await _repo.GetAll(paginate);
+            if (result.Status)
+            {
+                PageInfo = result.Paginate;
+                Categories = result.Data;
+            }
+            else
+            {
+                Categories = new List<CategoryDto>();
+            }
+            await Task.Delay(1000);
+            Loading = false;
+        }
+        public async Task ChangePage(PaginationEventArgs args)
+        {
+            PageInfo.CurrentPage = args.Page;
+            PageInfo.Take = args.PageSize;
+            await GetList(PageInfo);
+        }
+        public async Task Remove(CategoryDto category)
+        {
+            Loading = true;
+            var result = await _repo.Remove(category.Id);
+
             if (result.Status)
             {
                 await _notice.Open(new NotificationConfig()
                 {
-                    Message = "موفقیت آمیز",
+                    Message = "پیام تایید",
                     Description = result.Message,
                     NotificationType = NotificationType.Success
                 });
+
+                Categories.Remove(category);
             }
             else
             {
                 await _notice.Open(new NotificationConfig()
                 {
-                    Message = "خطا",
+                    Message = "پیام خطا",
                     Description = result.Message,
                     NotificationType = NotificationType.Error
                 });

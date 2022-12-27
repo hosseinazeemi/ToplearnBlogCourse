@@ -34,7 +34,7 @@ namespace Toplearn_Blog.Application.Services
             }
         }
 
-        public async Task<RepoResultDto<List<Category>>> GetAll(Paginate paginate)
+        public async Task<RepoResultDto<List<Category>>> List(Paginate paginate)
         {
             var queryable = _context.Categories.AsQueryable();
             var pageInfo = new Paginate(paginate.CurrentPage, paginate.Take, queryable.Count());
@@ -51,7 +51,17 @@ namespace Toplearn_Blog.Application.Services
             };
             return await Task.FromResult(result);
         }
+        public async Task<List<Category>> GetAll()
+        {
+            var queryable = _context.Categories.AsQueryable();
+            var data = queryable.Select(item => new Category
+            {
+                Id = item.Id,
+                Name = item.Name
+            }).ToList();
 
+            return await Task.FromResult(data);
+        }
         public async Task<bool> Remove(int id)
         {
             Category category = new Category

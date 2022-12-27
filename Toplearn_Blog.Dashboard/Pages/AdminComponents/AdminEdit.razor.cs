@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Toplearn_Blog.Dashboard.Repositories.Admin;
 using Toplearn_Blog.Shared.Dto.User;
 
-namespace Toplearn_Blog.Dashboard.Pages.Admin
+namespace Toplearn_Blog.Dashboard.Pages.AdminComponents
 {
     public partial class AdminEdit
     {
