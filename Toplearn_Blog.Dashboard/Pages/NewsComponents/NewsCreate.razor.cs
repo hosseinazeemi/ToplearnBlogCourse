@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Components;
 using Toplearn_Blog.Dashboard.Repositories.Admin;
 using Toplearn_Blog.Dashboard.Repositories.Category;
 using Toplearn_Blog.Dashboard.Repositories.News;
+using Toplearn_Blog.Dashboard.Repositories.Tag;
 using Toplearn_Blog.Shared.Dto.Category;
 using Toplearn_Blog.Shared.Dto.News;
+using Toplearn_Blog.Shared.Dto.Tag;
 using Toplearn_Blog.Shared.Dto.User;
 
 namespace Toplearn_Blog.Dashboard.Pages.NewsComponents
@@ -21,14 +23,18 @@ namespace Toplearn_Blog.Dashboard.Pages.NewsComponents
         private ICateogoryRepoService _categoryRepo { get; set; }
         [Inject]
         private IAdminRepoService _adminRepo { get; set; }
+        [Inject]
+        private ITagRepoService _tagRepo { get; set; }
         public List<CategoryDto> Categories { get; set; }
         public List<UserDto> Users { get; set; }
+        public List<TagDto> Tags { get; set; }
         protected override async Task OnInitializedAsync()
         {
             Loading = true;
             News = new NewsDto();
             await GetCategories();
             await GetAdmins();
+            await GetTags();
             Loading = false;
         }
         public async Task GetAdmins()
@@ -53,6 +59,18 @@ namespace Toplearn_Blog.Dashboard.Pages.NewsComponents
             else
             {
                 Categories = new List<CategoryDto>();
+            }
+        }
+        public async Task GetTags()
+        {
+            var result = await _tagRepo.GetAll();
+            if (result.Status)
+            {
+                Tags = result.Data;
+            }
+            else
+            {
+                Tags = new List<TagDto>();
             }
         }
         public async Task Submit()

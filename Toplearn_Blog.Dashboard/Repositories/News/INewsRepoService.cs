@@ -5,7 +5,7 @@ namespace Toplearn_Blog.Dashboard.Repositories.News
 {
     public interface INewsRepoService
     {
-        Task<ResponseDto<bool>> ChangePuplar(int id);
+        Task<ResponseDto<bool>> ChangePopular(int id);
         Task<ResponseDto<bool>> ChangeSelected(int id);
         Task<ResponseDto<bool>> ChangeState(int id);
         Task<ResponseDto<bool>> ChangeSuggest(int id);

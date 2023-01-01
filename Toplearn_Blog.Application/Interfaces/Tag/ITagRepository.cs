@@ -13,6 +13,7 @@ namespace Toplearn_Blog.Application.Interfaces
         Task<int> Create(Tag model);
         Task<Tag> FindById(int id);
         Task<RepoResultDto<List<Tag>>> GetAll(Paginate paginate);
+        Task<List<Tag>> GetAll();
         Task<bool> Remove(int id);
         Task<bool> Update(Tag tag);
     }

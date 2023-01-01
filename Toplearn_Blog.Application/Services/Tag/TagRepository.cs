@@ -52,6 +52,17 @@ namespace Toplearn_Blog.Application.Services
             return await Task.FromResult(result);
         }
 
+        public async Task<List<Tag>> GetAll()
+        {
+            var data = _context.Tags.Select(item => new Tag
+            {
+                Id = item.Id,
+                Name = item.Name
+            }).ToList();
+
+            return await Task.FromResult(data);
+        }
+
         public async Task<bool> Remove(int id)
         {
             Tag tag = new Tag

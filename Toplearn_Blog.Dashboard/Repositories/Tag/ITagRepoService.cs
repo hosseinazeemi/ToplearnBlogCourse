@@ -7,6 +7,7 @@ namespace Toplearn_Blog.Dashboard.Repositories.Tag
     {
         Task<ResponseDto<bool>> Create(TagDto tag);
         Task<ResponseDto<List<TagDto>>> GetAll(Paginate paginate);
+        Task<ResponseDto<List<TagDto>>> GetAll();
         Task<ResponseDto<TagDto>> GetTagById(int id);
         Task<ResponseDto<bool>> Remove(int id);
         Task<ResponseDto<bool>> Update(TagDto tag);

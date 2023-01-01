@@ -22,6 +22,11 @@ namespace Toplearn_Blog.Dashboard.Repositories.Tag
         {
             return _http.Get<List<TagDto>>($"{baseUrl}/list?CurrentPage={paginate.CurrentPage}&Take={paginate.Take}");
         }
+        
+        public Task<ResponseDto<List<TagDto>>> GetAll()
+        {
+            return _http.Get<List<TagDto>>($"{baseUrl}/getAll");
+        }
 
         public Task<ResponseDto<bool>> Remove(int id)
         {

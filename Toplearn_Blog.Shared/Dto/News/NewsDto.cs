@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toplearn_Blog.Shared.Dto.Media;
+using Toplearn_Blog.Shared.Dto.Tag;
 
 namespace Toplearn_Blog.Shared.Dto.News
 {
@@ -29,5 +30,6 @@ namespace Toplearn_Blog.Shared.Dto.News
         public string Facebook { get; set; }
         public string Twitter { get; set; }
         public List<MediaDto> Files { get; set; }
+        public List<TagDto> Tags { get; set; }
     }
 }

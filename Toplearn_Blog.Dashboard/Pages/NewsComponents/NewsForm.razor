@@ -1,5 +1,6 @@
 ﻿@using Toplearn_Blog.Dashboard.Shared.Components
 @using Toplearn_Blog.Shared.Dto.Category
+@using Toplearn_Blog.Shared.Dto.Tag
 @using Toplearn_Blog.Shared.Dto.User
 
 <div>
@@ -39,6 +40,25 @@
                         DefaultActiveFirstOption>
                         <ItemTemplate>
                             <span>@((context as UserDto).Name) &nbsp; @((context as UserDto).LastName)</span>
+                        </ItemTemplate>
+                    </Select>
+                }
+            </div>
+            <div class="col-lg-6 mb-3">
+                <label class="form-label">انتخاب برچسب</label>
+                @if (Tags != null)
+                {
+                    <Select Mode="multiple"
+                        TItem="TagDto"
+                        TItemValue="TagDto"
+                        DataSource="@Tags"
+                        @bind-Values="selectedTags"
+                        EnableSearch
+                        AllowClear
+                        LabelName="@nameof(TagDto.Name)"
+                        OnSelectedItemsChanged="OnTagsSelected">
+                        <ItemTemplate>
+                            <span>@((context as TagDto).Name)</span>
                         </ItemTemplate>
                     </Select>
                 }

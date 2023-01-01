@@ -5,6 +5,7 @@ using Toplearn_Blog.Shared.Dto.Category;
 using Toplearn_Blog.Shared.Dto.Global;
 using Toplearn_Blog.Shared.Dto.Media;
 using Toplearn_Blog.Shared.Dto.News;
+using Toplearn_Blog.Shared.Dto.Tag;
 using Toplearn_Blog.Shared.Dto.User;
 
 namespace Toplearn_Blog.Dashboard.Pages.NewsComponents
@@ -19,13 +20,16 @@ namespace Toplearn_Blog.Dashboard.Pages.NewsComponents
         public List<CategoryDto> Categories { get; set; }
         [Parameter]
         public List<UserDto> Users { get; set; }
+        [Parameter]
+        public List<TagDto> Tags { get; set; }
+        public IEnumerable<TagDto> selectedTags { get; set; }
         [Inject]
         NotificationService _notice { get; set; }
         public Paginate PageInfo { get; set; }
-
         protected override async Task OnInitializedAsync()
         {
             News.Files = new List<MediaDto>();
+            News.Tags = new List<TagDto>();
             PageInfo = new Paginate();
         }
         public async Task OnSelectFile(List<MediaDto> files)
@@ -41,6 +45,11 @@ namespace Toplearn_Blog.Dashboard.Pages.NewsComponents
         private void OnSelectedCategoryChangedHandler(CategoryDto value)
         {
             Console.WriteLine($"selected: ${value?.Name}");
+        }
+        private void OnTagsSelected(IEnumerable<TagDto> tags)
+        {
+            News.Tags.Clear();
+            News.Tags.AddRange(tags);
         }
     }
 }

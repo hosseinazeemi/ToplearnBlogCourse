@@ -45,9 +45,9 @@ namespace Toplearn_Blog.Dashboard.Repositories.News
         {
             return _http.Post<bool, int>($"{baseUrl}/changeSelected", id);
         }
-        public Task<ResponseDto<bool>> ChangePuplar(int id)
+        public Task<ResponseDto<bool>> ChangePopular(int id)
         {
-            return _http.Post<bool, int>($"{baseUrl}/changePuplar", id);
+            return _http.Post<bool, int>($"{baseUrl}/changePopular", id);
         }
         public Task<ResponseDto<bool>> ChangeSuggest(int id)
         {
