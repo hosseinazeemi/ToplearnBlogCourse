@@ -42,10 +42,10 @@ namespace Toplearn_Blog.Dashboard.Pages.TagComponents
             PageInfo.Take = args.PageSize;
             await GetList(PageInfo);
         }
-        public async Task Remove(TagDto category)
+        public async Task Remove(TagDto tag)
         {
             Loading = true;
-            var result = await _repo.Remove(category.Id);
+            var result = await _repo.Remove(tag.Id);
 
             if (result.Status)
             {
@@ -56,7 +56,7 @@ namespace Toplearn_Blog.Dashboard.Pages.TagComponents
                     NotificationType = NotificationType.Success
                 });
 
-                Tags.Remove(category);
+                Tags.Remove(tag);
             }
             else
             {

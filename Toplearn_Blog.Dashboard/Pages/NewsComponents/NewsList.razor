@@ -1,5 +1,137 @@
-﻿<h3>NewsList</h3>
+﻿@page "/dashboard/news/list"
 
-@code {
+@using System.ComponentModel
+@using AntDesign.TableModels
+@using Toplearn_Blog.Shared.Dto.News
 
-}
+<PageTitle>
+    پنل مدیریت | لیست خبر ها
+</PageTitle>
+<div class="card-body">
+    <Breadcrumb Class="pb-3 border-bottom">
+        <BreadcrumbItem>داشبورد</BreadcrumbItem>
+        <BreadcrumbItem>خبر</BreadcrumbItem>
+        <BreadcrumbItem>لیست خبر ها</BreadcrumbItem>
+    </Breadcrumb>
+    <div class="pt-3">
+        <h6 class="pb-3 fw-bold">لیست خبر ها</h6>
+        <Spin Spinning="Loading">
+            <Table TItem="NewsDto" OnPageIndexChange="ChangePage" DataSource="@News"
+                   PageIndex="@PageInfo.CurrentPage" Total="@PageInfo.AllItemsCount" PageSize="@PageInfo.Take">
+                <PropertyColumn Title="شناسه" Property="c=>c.Id">
+                    <a>@context.Id</a>
+                </PropertyColumn>
+                <PropertyColumn Title="لایک ها" Property="c=>c.Likes">
+                    <a>@context.Likes</a>
+                </PropertyColumn>
+                <PropertyColumn Title="دیس لایک ها" Property="c=>c.DisLikes">
+                    <a>@context.DisLikes</a>
+                </PropertyColumn>
+                <PropertyColumn Title="وضعیت" Property="c=>c.IsActive">
+                    <div class="d-flex flex-column align-items-center gap-1">
+                        @if (context.IsActive)
+                        {
+                            <span class="badge bg-info">فعال</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">غیر فعال</span>
+                        }
+                        <Switch @bind-Checked="context.IsActive" OnChange="(e) => ChangeState(e, context)" />
+                    </div>
+                </PropertyColumn>
+                <PropertyColumn Title="منتخب" Property="c=>c.Selected">
+                    @if (context.Selected)
+                    {
+                        <span class="badge bg-success">منتخب است</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">منتخب نیست</span>
+                    }
+                </PropertyColumn>
+                <PropertyColumn Title="محبوب" Property="c=>c.IsPopular">
+                    @if (context.IsPopular)
+                    {
+                        <span class="badge bg-primary">محبوب است</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">محبوب نیست</span>
+                    }
+                </PropertyColumn>
+                <PropertyColumn Title="پیشنهاد" Property="c=>c.IsSuggest">
+                    <div class="d-flex flex-column">
+                        @if (context.IsSuggest)
+                        {
+                            <span class="badge bg-warning">پیشنهاد شده</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">پیشنهاد نشده</span>
+                        }
+                    </div>
+                </PropertyColumn>
+                <PropertyColumn Title="دسته بندی" Property="c=>c.Category">
+                    @if (context.Category != null)
+                    {
+                        <span class="badge bg-success">
+                            @context.Category.Name
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">
+                            بدون دسته بندی
+                        </span>
+                    }
+                </PropertyColumn>
+                <PropertyColumn Title="مدیر ثبت کننده" Property="c=>c.User">
+                    @if (context.User != null)
+                    {
+                        <span class="badge bg-danger">
+                            @context.User.Name &nbsp; @context.User.LastName
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">
+                            بدون مدیر
+                        </span>
+                    }
+                </PropertyColumn>
+                <PropertyColumn Title="برچسب ها" Property="c=>c.Tags">
+                    @if (context.Tags != null && context.Tags.Count > 0)
+                    {
+                        @foreach (var item in context.Tags)
+                        {
+                            <span class="badge bg-success">
+                                @item.Name
+                            </span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">
+                            بدون برچسب
+                        </span>
+                    }
+                </PropertyColumn>
+                <ActionColumn Title="عملیات" Class="table-action">
+                    <Popconfirm Title="آیا برای حذف این ردیف اطمینان دارید ؟"
+                                OnConfirm="@(() => Remove(context))"
+                                OkText="بله"
+                                CancelText="خیر">
+                        <button class="btn btn-danger">
+                            <Icon Type="delete" Theme="outline" />
+                        </button>
+                    </Popconfirm>
+                    <a href="/dashboard/news/edit/@context.Id" class="btn btn-primary">
+                        <Icon Type="highlight" Theme="outline" />
+                    </a>
+                </ActionColumn>
+            </Table>
+
+        </Spin>
+    </div>
+</div>

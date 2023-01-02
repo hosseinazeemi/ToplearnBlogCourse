@@ -38,11 +38,19 @@ namespace Toplearn_Blog.Application.Services
         {
             var queryable = _context.News.AsQueryable();
             var pageInfo = new Paginate(paginate.CurrentPage, paginate.Take, queryable.Count());
-            var data = queryable.Select(item => new News
-            {
-                Id = item.Id,
-                IsActive = item.IsActive
-            }).Skip(pageInfo.Skip).Take(pageInfo.Take).ToList();
+            //var data = queryable.Select(item => new News
+            //{
+            //    Id = item.Id,
+            //    IsActive = item.IsActive
+            //}).Skip(pageInfo.Skip).Take(pageInfo.Take).ToList();
+
+            var data = queryable
+                .Include(p => p.User)
+                .Include(p => p.Category)
+                .Include(p => p.Tags)
+                .Skip(pageInfo.Skip)
+                .Take(pageInfo.Take)
+                .ToList();
 
             var result = new RepoResultDto<List<News>>
             {
