@@ -18,10 +18,10 @@ namespace Toplearn_Blog.Shared.Dto.User
         [Required(ErrorMessage = "وارد کردن ایمیل الزامی است")]
         [EmailAddress(ErrorMessage = "ایمیل را بدرستی وارد کنید")]
         public string Email { get; set; }
-        [Required(ErrorMessage ="وارد کردن کلمه عبور الزامی است")]
+        [Required(ErrorMessage = "وارد کردن کلمه عبور الزامی است")]
         public string Password { get; set; }
         public string Phone { get; set; }
         public bool IsActive { get; set; }
-        public List<MediaDto> Files { get; set; }
+        public virtual List<MediaDto> Files { get; set; }
     }
 }

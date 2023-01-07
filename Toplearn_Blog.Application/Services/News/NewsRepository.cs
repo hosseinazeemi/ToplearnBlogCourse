@@ -92,7 +92,12 @@ namespace Toplearn_Blog.Application.Services
 
         public async Task<News> FindById(int id)
         {
-            var result = _context.News.Where(p => p.Id == id).FirstOrDefault();
+            var result = _context.News
+                .Where(p => p.Id == id)
+                .Include(p => p.User)
+                .Include(p => p.Category)
+                .Include(p => p.Tags)
+                .FirstOrDefault();
 
             return await Task.FromResult(result);
         }

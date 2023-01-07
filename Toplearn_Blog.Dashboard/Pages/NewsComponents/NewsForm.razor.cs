@@ -1,5 +1,6 @@
 ﻿using AntDesign;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Toplearn_Blog.Dashboard.Repositories.Category;
 using Toplearn_Blog.Shared.Dto.Category;
 using Toplearn_Blog.Shared.Dto.Global;
@@ -44,12 +45,20 @@ namespace Toplearn_Blog.Dashboard.Pages.NewsComponents
         }
         private void OnSelectedCategoryChangedHandler(CategoryDto value)
         {
-            Console.WriteLine($"selected: ${value?.Name}");
+            News.Category = value;
+        }
+        private void OnSelectedUserChangedHandler(UserDto value)
+        {
+            News.User = value;
         }
         private void OnTagsSelected(IEnumerable<TagDto> tags)
         {
             News.Tags.Clear();
             News.Tags.AddRange(tags);
+        }
+        public async Task Submit()
+        {
+            await SubmitCallback.InvokeAsync();
         }
     }
 }

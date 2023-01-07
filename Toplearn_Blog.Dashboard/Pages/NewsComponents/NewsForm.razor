@@ -4,7 +4,7 @@
 @using Toplearn_Blog.Shared.Dto.User
 
 <div>
-    <EditForm Model="News" Context="EditFormContext" OnValidSubmit="SubmitCallback">
+    <EditForm Model="News" Context="EditFormContext" OnValidSubmit="Submit">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
@@ -37,6 +37,7 @@
                         @bind-Value="@News.UserId"
                         ValueName="@nameof(UserDto.Id)"
                         LabelName="@nameof(UserDto.Name)"
+                        OnSelectedItemChanged="OnSelectedUserChangedHandler"
                         DefaultActiveFirstOption>
                         <ItemTemplate>
                             <span>@((context as UserDto).Name) &nbsp; @((context as UserDto).LastName)</span>
@@ -136,6 +137,6 @@
                 <UploadFileComponent FileCallback="OnSelectFile" />
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">ثبت اطلاعات</button>
+        <button type="button" class="btn btn-primary">ثبت اطلاعات</button>
     </EditForm>
 </div>

@@ -26,7 +26,7 @@ namespace Toplearn_Blog.WebAPI.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<ResponseDto<bool>> Create(NewsDto news)
+        public async Task<ResponseDto<bool>> Create([FromBody]NewsDto news)
         {
             News model = _autoMapper.Map<NewsDto, News>(news);
             try
@@ -96,6 +96,7 @@ namespace Toplearn_Blog.WebAPI.Controllers
         public ResponseDto<NewsDto> Find([FromQuery] int id)
         {
             var result = _newsRepository.FindById(id).GetAwaiter().GetResult();
+            result.Media = _mediaRepository.Get(id , nameof(News)).GetAwaiter().GetResult();
             var mapData = _autoMapper.Map<News, NewsDto>(result);
             return new ResponseDto<NewsDto>(true, "موفقیت آمیز", mapData);
         }

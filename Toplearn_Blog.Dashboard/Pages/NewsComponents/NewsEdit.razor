@@ -1,5 +1,19 @@
-﻿<h3>NewsEdit</h3>
+﻿@page "/dashboard/news/edit/{Id:int}"
+@using Toplearn_Blog.Dashboard.Shared.Components
+<PageTitle>
+    پنل مدیریت | ویرایش خبر
+</PageTitle>
+<div class="card-body">
+    <Breadcrumb Class="pb-3 border-bottom">
+        <BreadcrumbItem>داشبورد</BreadcrumbItem>
+        <BreadcrumbItem>خبر</BreadcrumbItem>
+        <BreadcrumbItem>ویرایش خبر</BreadcrumbItem>
+    </Breadcrumb>
 
-@code {
-
-}
+    <div class="pt-3">
+        <h6 class="pb-3 fw-bold">ویرایش خبر</h6>
+        <Spin Spinning="@Loading">
+            <NewsForm News="News" Tags="Tags" Users="Users" Categories="Categories" SubmitCallback="Submit" />
+        </Spin>
+    </div>
+</div>

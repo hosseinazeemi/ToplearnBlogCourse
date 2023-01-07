@@ -18,13 +18,17 @@ namespace Toplearn_Blog.WebAPI
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services
+                .AddControllers(p =>
+                {
+                    p.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+                });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             string connection = builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"];
             builder.Services.AddDbContext<DatabaseContext>(op => op.UseSqlServer(connection));
-            builder.Services.AddScoped<IDatabaseContext , DatabaseContext>();
+            builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
             builder.Services.AddTransient<IAdminRepository, AdminRepository>();
             builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
             builder.Services.AddTransient<ITagRepository, TagRepository>();

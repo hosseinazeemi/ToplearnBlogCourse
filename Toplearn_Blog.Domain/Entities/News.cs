@@ -27,5 +27,6 @@ namespace Toplearn_Blog.Domain.Entities
         public virtual Category Category { get; set; }
         public virtual User User { get; set; }
         public virtual List<Tag> Tags { get; set; }
+        public virtual List<Media> Media { get; set; }
     }
 }

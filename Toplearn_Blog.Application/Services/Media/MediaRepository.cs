@@ -48,6 +48,15 @@ namespace Toplearn_Blog.Application.Services
             }
         }
 
+        public async Task<List<Media>> Get(int id, string tableName)
+        {
+            var allMedia = _context.Media
+                .Where(p => p.TableRowId == id && p.TableName == tableName)
+                .ToList();
+
+            return await Task.FromResult(allMedia);
+        }
+
         public async Task<List<Media>> Remove(int id, string tableName)
         {
             var allMedia = _context.Media.Where(p => p.TableRowId == id && p.TableName == tableName).ToList();

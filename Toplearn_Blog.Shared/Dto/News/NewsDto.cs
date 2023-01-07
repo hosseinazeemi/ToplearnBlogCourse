@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Toplearn_Blog.Shared.Dto.Category;
 using Toplearn_Blog.Shared.Dto.Media;
@@ -20,8 +21,8 @@ namespace Toplearn_Blog.Shared.Dto.News
         public string Description { get; set; }
         public int Likes { get; set; }
         public int DisLikes { get; set; }
-        public int CategoryId { get; set; }
-        public int UserId { get; set; }
+        public int CategoryId { get; set; } = 0;
+        public int UserId { get; set; } = 0;
         public bool IsActive { get; set; }
         public bool Selected { get; set; }
         public bool IsPopular { get; set; }

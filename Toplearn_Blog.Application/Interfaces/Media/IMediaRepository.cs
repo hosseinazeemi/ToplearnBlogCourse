@@ -12,5 +12,6 @@ namespace Toplearn_Blog.Application.Interfaces
         Task<bool> Create(List<Media> files);
         Task<bool> Create(Media file);
         Task<List<Media>> Remove(int id , string tableName); 
+        Task<List<Media>> Get(int id , string tableName); 
     }
 }
