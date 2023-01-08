@@ -11,7 +11,7 @@ using Toplearn_Blog.Shared.Dto.User;
 
 namespace Toplearn_Blog.Dashboard.Pages.NewsComponents
 {
-    public partial class NewsEdit
+    public partial class NewsEdit 
     {
         public bool Loading { get; set; }
         public NewsDto News { get; set; }

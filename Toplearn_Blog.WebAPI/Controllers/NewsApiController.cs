@@ -26,7 +26,7 @@ namespace Toplearn_Blog.WebAPI.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<ResponseDto<bool>> Create([FromBody]NewsDto news)
+        public async Task<ResponseDto<bool>> Create(NewsDto news)
         {
             News model = _autoMapper.Map<NewsDto, News>(news);
             try

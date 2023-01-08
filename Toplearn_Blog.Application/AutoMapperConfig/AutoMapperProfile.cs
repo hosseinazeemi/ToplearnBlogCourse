@@ -26,7 +26,7 @@ namespace Toplearn_Blog.Application.AutoMapperConfig
             CreateMap<TagDto , Tag>();
             CreateMap<Tag , TagDto>();
             CreateMap<NewsDto , News>();
-            CreateMap<News , NewsDto>().ForMember(m => m.Files , n => n.MapFrom(x => x.Media));
+            CreateMap<News , NewsDto>();
         }
     }
 }

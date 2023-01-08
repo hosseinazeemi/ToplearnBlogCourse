@@ -12,8 +12,8 @@ using Toplearn_Blog.Persistence.Context;
 namespace ToplearnBlog.Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230102172100_RemoveNewsMediaRelation")]
-    partial class RemoveNewsMediaRelation
+    [Migration("20230107173914_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,6 +73,9 @@ namespace ToplearnBlog.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("NewsId")
+                        .HasColumnType("int");
+
                     b.Property<string>("TableField")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -85,6 +88,8 @@ namespace ToplearnBlog.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
 
                     b.ToTable("Media");
                 });
@@ -236,6 +241,13 @@ namespace ToplearnBlog.Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Toplearn_Blog.Domain.Entities.Media", b =>
+                {
+                    b.HasOne("Toplearn_Blog.Domain.Entities.News", null)
+                        .WithMany("Media")
+                        .HasForeignKey("NewsId");
+                });
+
             modelBuilder.Entity("Toplearn_Blog.Domain.Entities.News", b =>
                 {
                     b.HasOne("Toplearn_Blog.Domain.Entities.Category", "Category")
@@ -258,6 +270,11 @@ namespace ToplearnBlog.Persistence.Migrations
             modelBuilder.Entity("Toplearn_Blog.Domain.Entities.Category", b =>
                 {
                     b.Navigation("News");
+                });
+
+            modelBuilder.Entity("Toplearn_Blog.Domain.Entities.News", b =>
+                {
+                    b.Navigation("Media");
                 });
 #pragma warning restore 612, 618
         }
