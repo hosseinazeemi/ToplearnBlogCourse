@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace Toplearn_Blog.Domain.Entities
         public virtual Category Category { get; set; }
         public virtual User User { get; set; }
         public virtual List<Tag> Tags { get; set; }
+        [NotMapped]
         public virtual List<Media> Media { get; set; }
     }
 }

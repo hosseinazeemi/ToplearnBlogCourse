@@ -33,6 +33,7 @@ namespace Toplearn_Blog.Shared.Dto.News
         public string Facebook { get; set; }
         public string Twitter { get; set; }
         public List<MediaDto> Files { get; set; }
+        public List<MapMediaDto> ShowFiles { get; set; }
         public List<TagDto> Tags { get; set; }
         public UserDto User { get; set; }
         public CategoryDto Category { get; set; }

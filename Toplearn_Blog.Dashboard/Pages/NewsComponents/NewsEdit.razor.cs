@@ -27,7 +27,7 @@ namespace Toplearn_Blog.Dashboard.Pages.NewsComponents
         private ITagRepoService _tagRepo { get; set; }
         public List<CategoryDto> Categories { get; set; }
         public List<UserDto> Users { get; set; }
-        public List<TagDto> Tags { get; set; }
+        public List<TagDto> Tags { get; set; } 
         [Parameter]
         public int Id { get; set; }
         protected override async Task OnInitializedAsync()

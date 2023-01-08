@@ -6,6 +6,6 @@ namespace Toplearn_Blog.WebAPI.Service
     {
         List<MediaDto> Save(List<MediaDto> files , string folderName);
         Task<string> Save(IFormFile file , string folderName);
-        void Delete(List<DeleteMediaDto> files);
+        void Delete(List<MapMediaDto> files);
     }
 }

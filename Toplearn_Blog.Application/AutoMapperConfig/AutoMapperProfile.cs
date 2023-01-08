@@ -19,14 +19,14 @@ namespace Toplearn_Blog.Application.AutoMapperConfig
         {
             CreateMap<UserDto, User>();
             CreateMap<User, UserDto>();
-            CreateMap<Media, DeleteMediaDto>();
-            CreateMap<DeleteMediaDto, Media>();
+            CreateMap<Media, MapMediaDto>();
+            CreateMap<MapMediaDto, Media>();
             CreateMap<Category, CategoryDto>();
             CreateMap<CategoryDto , Category>();
             CreateMap<TagDto , Tag>();
             CreateMap<Tag , TagDto>();
-            CreateMap<NewsDto , News>();
-            CreateMap<News , NewsDto>();
+            CreateMap<NewsDto , News>().ForMember(p => p.Media , x => x.MapFrom(y => y.ShowFiles));
+            CreateMap<News , NewsDto>().ForMember(p => p.ShowFiles, x => x.MapFrom(y => y.Media));
         }
     }
 }

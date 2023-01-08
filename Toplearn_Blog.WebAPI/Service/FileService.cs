@@ -32,7 +32,7 @@ namespace Toplearn_Blog.WebAPI.Helper
 
             return files;
         }
-        public void Delete(List<DeleteMediaDto> files)
+        public void Delete(List<MapMediaDto> files)
         {
             foreach (var item in files)
             {

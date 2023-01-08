@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Toplearn_Blog.Shared.Dto.Media
 {
-    public class DeleteMediaDto
+    public class MapMediaDto
     {
         public long Id { get; set; }
         public string Name { get; set; }

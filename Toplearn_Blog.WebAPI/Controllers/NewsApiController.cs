@@ -86,7 +86,7 @@ namespace Toplearn_Blog.WebAPI.Controllers
             if (result)
             {
                 List<Media> media = _mediaRepository.Remove(id, nameof(News)).GetAwaiter().GetResult();
-                var mapData = _autoMapper.Map<List<Media>, List<DeleteMediaDto>>(media);
+                var mapData = _autoMapper.Map<List<Media>, List<MapMediaDto>>(media);
                 _fileService.Delete(mapData);
             }
             return new ResponseDto<bool>(true, "موفقیت آمیز", result);
